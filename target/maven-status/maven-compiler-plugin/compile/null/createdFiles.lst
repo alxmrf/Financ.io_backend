@@ -1,0 +1,5 @@
+adj/org/controller/ClienteController.class
+adj/org/GreetingResource.class
+adj/org/service/PessoaService.class
+adj/org/repository/PessoaRepository.class
+adj/org/entity/Pessoa.class
