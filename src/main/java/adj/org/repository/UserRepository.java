@@ -1,9 +1,9 @@
 package adj.org.repository;
 
-import adj.org.entity.Pessoa;
+import adj.org.entity.User;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class PessoaRepository implements PanacheRepository<Pessoa> {
+public class UserRepository implements PanacheRepository<User> {
 }

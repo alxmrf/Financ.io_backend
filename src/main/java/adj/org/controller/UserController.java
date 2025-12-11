@@ -1,7 +1,7 @@
 package adj.org.controller;
 
-import adj.org.entity.Pessoa;
-import adj.org.service.PessoaService;
+import adj.org.entity.User;
+import adj.org.service.UserService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -9,19 +9,19 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
-@ApplicationScoped @Path("/cliente")
-public class ClienteController {
+@ApplicationScoped @Path("/usuario")
+public class UserController {
 
     @Inject
-    PessoaService service;
+    UserService service;
 
     @POST
     @Path("/cadastrar")
-    public Response cadastrarCliente(@Valid Pessoa novoCliente){
+    public Response registerUser(@Valid User newUser){
 
         try {
-            service.cadastrarCliente(novoCliente);
-            System.out.println("Cliente Cadastrado com Sucesso!");
+            service.registerUser(newUser);
+            System.out.println("Usuário Cadastrado com Sucesso!");
             return Response.status(Response.Status.CREATED).build();
 
         } catch (IllegalArgumentException error) {
