@@ -1,5 +1,7 @@
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/GreetingResource.java
-/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/controller/ClienteController.java
-/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/entity/Pessoa.java
-/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/repository/PessoaRepository.java
-/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/service/PessoaService.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/controller/UserController.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/entity/User.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/exception/ValidationExceptionMapper.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/models/FindUserDto.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/repository/UserRepository.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/service/UserService.java

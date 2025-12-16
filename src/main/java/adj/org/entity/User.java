@@ -1,18 +1,16 @@
 package adj.org.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
 
 
-@Entity @Getter @Setter @AllArgsConstructor @ToString
+@Entity @Getter @Setter @AllArgsConstructor @ToString @Table(name = "users")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +19,7 @@ public class User {
     @NotBlank(message = "O CPF é obrigatório")
     public String cpf;
 
-    @NotBlank
+    @NotNull // NotBlank funciona apenas para String --> Para Outros Tipos é NotNull
     public LocalDate register_data;
 
     public User(){

@@ -1,5 +1,7 @@
-adj/org/controller/ClienteController.class
+adj/org/models/FindUserDto.class
 adj/org/GreetingResource.class
-adj/org/service/PessoaService.class
-adj/org/repository/PessoaRepository.class
-adj/org/entity/Pessoa.class
+adj/org/repository/UserRepository.class
+adj/org/exception/ValidationExceptionMapper.class
+adj/org/service/UserService.class
+adj/org/entity/User.class
+adj/org/controller/UserController.class

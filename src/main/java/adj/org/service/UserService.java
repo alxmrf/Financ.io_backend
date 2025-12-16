@@ -1,6 +1,8 @@
 package adj.org.service;
 
 import adj.org.entity.User;
+import adj.org.models.DeleteUserDto;
+import adj.org.models.FindUserDto;
 import adj.org.repository.UserRepository;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -36,18 +38,18 @@ public class UserService {
         repository.persist(newUser);
     }
 
-    public List<User> findUser(String cpf  , String email){
+    public List<User> findUser(FindUserDto searchData){
 
         var whereQuery = new ArrayList<String>();
         var parameters = new Parameters();
 
-        if(!cpf.isBlank()){
+        if(!searchData.cpf.isBlank()){
             whereQuery.add("cpf=:cpf");
-            parameters.and("cpf",cpf);
+            parameters.and("cpf",searchData.cpf);
         }
-        if(!email.isBlank()){
+        if(!searchData.email.isBlank()){
             whereQuery.add("email =: email");
-            parameters.and("email",email);
+            parameters.and("email",searchData.email);
         }
 
         if(whereQuery.isEmpty()){
@@ -60,19 +62,22 @@ public class UserService {
 
     }
 
-    public void deleteUser(Optional<Long> id, Optional<String> cpf){
+    @Transactional
+    public void deleteUser(DeleteUserDto deleteData){
 
-        if(id.isPresent()){
-            var quantidade = repository.delete("id=:id", Parameters.with("id", id));
+        if(deleteData.id != null){
+            var quantidade = repository.delete("id=:id", Parameters.with("id", deleteData.id));
             if(quantidade == 0){
                 throw new NotFoundException("Não existe usuário com esse ID");
             }
+            return;
         }
-        if(cpf.isPresent()){
-            var quantidade = repository.delete("cpf=:cpf", Parameters.with("cpf", cpf));
+        if(!deleteData.cpf.isBlank()){
+            var quantidade = repository.delete("cpf=:cpf", Parameters.with("cpf", deleteData.cpf));
             if(quantidade == 0){
                 throw new NotFoundException("Não existe usuário com esse CPF");
             }
+            return;
         }
 
         throw new IllegalArgumentException("Insira o ID ou o CPF do usuário");
