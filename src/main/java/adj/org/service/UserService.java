@@ -1,8 +1,8 @@
 package adj.org.service;
 
 import adj.org.entity.User;
-import adj.org.models.DeleteUserDto;
 import adj.org.models.FindUserDto;
+import adj.org.models.UpdateUserDto;
 import adj.org.repository.UserRepository;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,7 +12,6 @@ import jakarta.ws.rs.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @ApplicationScoped
 public class UserService {
@@ -62,24 +61,45 @@ public class UserService {
 
     }
 
-    @Transactional
-    public void deleteUser(DeleteUserDto deleteData){
+    public User getUserById(Long id){
 
-        if(deleteData.id != null){
-            var quantidade = repository.delete("id=:id", Parameters.with("id", deleteData.id));
+        User user = repository.findById(id);
+
+        if(user == null){
+            throw new NotFoundException("Não existe um usuário com esse ID");
+        }
+
+        return user;
+    }
+
+    @Transactional
+    public void updateUser(UpdateUserDto userInfo){
+
+        User user = repository.findById(userInfo.id);
+
+        System.out.println(user);
+
+        if (user == null) {
+            throw new NotFoundException("Não existe um usuário com esse ID");
+        }
+
+        user.setCpf(userInfo.cpf);
+        user.setNome(userInfo.nome);
+        user.setIdade(userInfo.idade);
+        user.setEmail(userInfo.email);
+    }
+
+    @Transactional
+    public void deleteUser(Long id){
+
+        if(id != null){
+            var quantidade = repository.delete("id=:id", Parameters.with("id", id));
             if(quantidade == 0){
                 throw new NotFoundException("Não existe usuário com esse ID");
             }
             return;
         }
-        if(!deleteData.cpf.isBlank()){
-            var quantidade = repository.delete("cpf=:cpf", Parameters.with("cpf", deleteData.cpf));
-            if(quantidade == 0){
-                throw new NotFoundException("Não existe usuário com esse CPF");
-            }
-            return;
-        }
 
-        throw new IllegalArgumentException("Insira o ID ou o CPF do usuário");
+        throw new IllegalArgumentException("Insira o ID do usuário");
     }
 }

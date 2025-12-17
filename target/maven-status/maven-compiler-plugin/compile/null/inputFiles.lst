@@ -3,5 +3,6 @@
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/entity/User.java
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/exception/ValidationExceptionMapper.java
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/models/FindUserDto.java
+/home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/models/UpdateUserDto.java
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/repository/UserRepository.java
 /home/diogo/Coding/Projetos/Financ.io_backend/src/main/java/adj/org/service/UserService.java

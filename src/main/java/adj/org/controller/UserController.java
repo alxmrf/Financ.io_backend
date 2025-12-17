@@ -1,16 +1,14 @@
 package adj.org.controller;
 
 import adj.org.entity.User;
-import adj.org.models.DeleteUserDto;
 import adj.org.models.FindUserDto;
+import adj.org.models.UpdateUserDto;
 import adj.org.service.UserService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-
-import java.util.Optional;
 
 @ApplicationScoped @Path("/usuario")
 public class UserController {
@@ -49,25 +47,62 @@ public class UserController {
             return Response.status(Response.Status.OK).entity(usersFound).build();
 
         } catch (IllegalArgumentException error) {
-            return Response.status(409).entity(error.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(error.getMessage())
+                    .build();
         }
     }
 
-    @DELETE
-    @Path("/deletar")
-    public Response deleteUser(DeleteUserDto deleteData){
 
-        if(deleteData.id == null){
-            deleteData.id = null;
+    @GET @Path("/{id}")
+    public Response getUserById(@PathParam("id") Long id){
+
+        var userFound = service.getUserById(id);
+
+        System.out.println("Usuário Encontrado com Sucesso! (Único)");
+
+        return Response.ok(userFound).build();
+    }
+
+
+    @PUT @Path("/editar/{id}")
+    public Response updateUser(@PathParam("id") Long id, UpdateUserDto userInfo){
+
+        userInfo.id = id;
+
+        var userFound = service.getUserById(id);
+
+        if(userInfo.cpf == null){
+            userInfo.cpf = userFound.cpf;
         }
-        if(deleteData.cpf == null){
-            deleteData.cpf = "";
+        if(userInfo.nome == null){
+            userInfo.nome = userFound.nome;
         }
+        if(userInfo.idade == 0){
+            userInfo.idade = userFound.idade;
+        }
+        if(userInfo.email == null){
+            userInfo.email = userFound.email;
+        }
+
+        service.updateUser(userInfo);
+
+        return Response.status(Response.Status.OK)
+                .entity("Usuário atualizado com sucesso!")
+                .build();
+
+    }
+
+    @DELETE
+    @Path("/editar/{id}")
+    public Response deleteUser(@PathParam("id") Long id){
 
         try {
-            service.deleteUser(deleteData);
+            service.deleteUser(id);
             System.out.println("Usuário Removido com Sucesso!");
-            return Response.status(Response.Status.OK).entity("Usuário Removido com Sucesso!").build();
+            return Response.status(Response.Status.OK)
+                    .entity("Usuário Removido com Sucesso!")
+                    .build();
 
         } catch (IllegalArgumentException error) {
             return Response.status(Response.Status.NOT_ACCEPTABLE)

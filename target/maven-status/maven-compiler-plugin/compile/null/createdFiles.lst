@@ -5,3 +5,4 @@ adj/org/exception/ValidationExceptionMapper.class
 adj/org/service/UserService.class
 adj/org/entity/User.class
 adj/org/controller/UserController.class
+adj/org/models/UpdateUserDto.class
